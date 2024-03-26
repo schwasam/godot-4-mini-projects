@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://dukwuciu63yp4"]
+
+[ext_resource type="Script" path="res://Menu/Launcher.gd" id="1_nue0b"]
+[ext_resource type="PackedScene" uid="uid://cqyemf3j0mj2i" path="res://Balloon Popper/BalloonPopper.tscn" id="2_hegic"]
+[ext_resource type="PackedScene" uid="uid://18m1nesa0fof" path="res://Physics/Physics.tscn" id="3_j764c"]
+[ext_resource type="PackedScene" uid="uid://bky1fps51tlfc" path="res://Loops/Loops.tscn" id="4_wsoet"]
+[ext_resource type="PackedScene" uid="uid://rwiwywtw5kld" path="res://Collision/Collision.tscn" id="5_ap8qm"]
+
+[node name="Main" type="Node" node_paths=PackedStringArray("ui", "scene_container")]
+script = ExtResource("1_nue0b")
+ui = NodePath("UI")
+scene_container = NodePath("SceneContainer")
+balloon_popper_scene = ExtResource("2_hegic")
+physics_scene = ExtResource("3_j764c")
+loops_scene = ExtResource("4_wsoet")
+collision_scene = ExtResource("5_ap8qm")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Container" type="VBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BalloonPopperButton" type="Button" parent="UI/Container"]
+layout_mode = 2
+text = "Balloon Popper"
+
+[node name="PhysicsButton" type="Button" parent="UI/Container"]
+layout_mode = 2
+text = "Physics"
+
+[node name="LoopsButton" type="Button" parent="UI/Container"]
+layout_mode = 2
+text = "Loops"
+
+[node name="CollisionButton" type="Button" parent="UI/Container"]
+layout_mode = 2
+text = "Collision"
+
+[node name="SceneContainer" type="Node" parent="."]
+
+[connection signal="pressed" from="UI/Container/BalloonPopperButton" to="." method="_on_balloon_popper_pressed"]
+[connection signal="pressed" from="UI/Container/PhysicsButton" to="." method="_on_physics_pressed"]
+[connection signal="pressed" from="UI/Container/LoopsButton" to="." method="_on_loops_pressed"]
+[connection signal="pressed" from="UI/Container/CollisionButton" to="." method="_on_collision_pressed"]

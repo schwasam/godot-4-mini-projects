@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://18m1nesa0fof"]
+
+[ext_resource type="Script" path="res://Physics/PhysicsPlayer.gd" id="1_542tm"]
+[ext_resource type="Texture2D" uid="uid://bfgonj330ot6y" path="res://Physics/PhysicsCharacter.png" id="1_c2smj"]
+[ext_resource type="PackedScene" uid="uid://bgi0edw4dief4" path="res://Physics/Crate.tscn" id="3_x06rc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xlj2l"]
+size = Vector2(18, 18)
+
+[node name="Main" type="Node2D"]
+
+[node name="Player" type="RigidBody2D" parent="."]
+mass = 5.0
+gravity_scale = 0.0
+linear_damp = 1.0
+script = ExtResource("1_542tm")
+
+[node name="Sprite" type="Sprite2D" parent="Player"]
+texture = ExtResource("1_c2smj")
+
+[node name="Shape" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_xlj2l")
+
+[node name="Camera" type="Camera2D" parent="."]
+
+[node name="--- Interactables ---" type="Node" parent="."]
+
+[node name="Crate1" parent="--- Interactables ---" instance=ExtResource("3_x06rc")]
+position = Vector2(41, 41)
+linear_damp = 0.25
+
+[node name="Crate2" parent="--- Interactables ---" instance=ExtResource("3_x06rc")]
+position = Vector2(-122, 182)
+
+[node name="Crate3" parent="--- Interactables ---" instance=ExtResource("3_x06rc")]
+position = Vector2(202, 155)
+
+[node name="Crate4" parent="--- Interactables ---" instance=ExtResource("3_x06rc")]
+position = Vector2(221, -92)
+
+[node name="Crate5" parent="--- Interactables ---" instance=ExtResource("3_x06rc")]
+position = Vector2(27, -151)
+
+[node name="Crate6" parent="--- Interactables ---" instance=ExtResource("3_x06rc")]
+position = Vector2(-108, -79)
+
+[node name="Crate7" parent="--- Interactables ---" instance=ExtResource("3_x06rc")]

@@ -1,0 +1,99 @@
+[gd_scene load_steps=16 format=3 uid="uid://rwiwywtw5kld"]
+
+[ext_resource type="Script" path="res://Collision/PlayerMovement.gd" id="1_ob86n"]
+[ext_resource type="PackedScene" uid="uid://w1vkjl5dpfsc" path="res://Collision/Tree.tscn" id="2_yt6sw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_hcdfp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ojiph"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2dmcs"]
+friction = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_qj78w"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p172w"]
+albedo_color = Color(0.403922, 0.258824, 0.870588, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5j7ug"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0e2le"]
+albedo_color = Color(0.713726, 0.239216, 0.278431, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_j14ty"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8oqvq"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xq3hj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s77tp"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7133f"]
+size = Vector3(1, 1.07269, 1)
+
+[sub_resource type="Environment" id="Environment_qb621"]
+background_mode = 1
+background_color = Color(0.352941, 0.701961, 0.921569, 1)
+
+[node name="Main" type="Node3D"]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(12, 0, 0, 0, 0.281908, 10.2606, 0, -0.102606, 28.1908, 0, 0, 0)
+
+[node name="Model" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_hcdfp")
+
+[node name="Shape" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_ojiph")
+
+[node name="Player" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.85801, 12.1647)
+physics_material_override = SubResource("PhysicsMaterial_2dmcs")
+max_contacts_reported = 3
+contact_monitor = true
+script = ExtResource("1_ob86n")
+
+[node name="Camera" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 0.935881, 0.352316, 0, -0.352316, 0.935881, 0, 5.69826, 4.765)
+
+[node name="UpperBody" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(1, 7.45058e-09, -2.98023e-08, -1.86265e-09, 1, 0, 2.98023e-08, 0, 1, 0, 3, 0)
+mesh = SubResource("BoxMesh_qj78w")
+surface_material_override/0 = SubResource("StandardMaterial3D_p172w")
+
+[node name="LowerBody" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(1, 7.45058e-09, -5.96046e-08, -3.72529e-09, 1, 0, 4.47035e-08, 0, 1, 0, 2, 0)
+mesh = SubResource("BoxMesh_5j7ug")
+surface_material_override/0 = SubResource("StandardMaterial3D_0e2le")
+
+[node name="SkiLeft" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 0.193185, 1.55291, 0, -0.0517638, 5.79556, 0.6, 1.2, 0)
+mesh = SubResource("BoxMesh_j14ty")
+surface_material_override/0 = SubResource("StandardMaterial3D_8oqvq")
+
+[node name="SkiRight" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 0.193185, 1.55291, 0, -0.0517638, 5.79556, -0.6, 1.2, 0)
+mesh = SubResource("BoxMesh_xq3hj")
+surface_material_override/0 = SubResource("StandardMaterial3D_s77tp")
+
+[node name="Shape" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 1.41561e-08, -2.98023e-08, -1.86265e-09, 1.9, 0, 2.98023e-08, 0, 1, 1.05842e-10, 2.51268, 0)
+shape = SubResource("BoxShape3D_7133f")
+
+[node name="Light" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 8.86121, 5)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_qb621")
+
+[node name="Tree1" parent="." instance=ExtResource("2_yt6sw")]
+
+[node name="Tree2" parent="." instance=ExtResource("2_yt6sw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3, -8)
+
+[node name="Tree3" parent="." instance=ExtResource("2_yt6sw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -3, -8)
+
+[connection signal="body_entered" from="Player" to="Player" method="_on_body_entered"]
